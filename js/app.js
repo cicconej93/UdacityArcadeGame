@@ -6,6 +6,10 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+
+    this.x = 1;
+    this.y = 125;
+
 };
 
 // Update the enemy's position, required method for game
@@ -14,6 +18,12 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    if(this.x > 500) {
+        this.x = -100;
+    } else this.x = this.x + 200 * dt;
+    //this.y = this.y + 1 * dt;
+    //console.log(dt);
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -24,11 +34,55 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var Player = function() {
+    this.sprite = 'images/char-boy.png';
+
+    this.x = 300;
+    this.y = 400;
+
+};
+
+Player.prototype.update = function(dt){
+    //console.log(dt);
+};
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+Player.prototype.handleInput = function(input){
+    console.log(input);
+    switch (input) {
+        case 'left':
+            if (this.x > 25)
+                this.x = this.x - 50;
+            break;
+        case 'right':
+            if (this.x < 375)
+                this.x = this.x + 50;
+            break;
+        case 'up':
+            if (this.y > 25)
+                this.y = this.y - 50;
+            break;
+        case 'down':
+            if (this.y < 375)
+                this.y = this.y + 50;
+            break;
+        default:
+            console.log(wat);
+
+    }
+};
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+var newEnemy1 = new Enemy();
+var newEnemy2 = new Enemy();
+var newEnemy3 = new Enemy();
+
+allEnemies = [newEnemy1, newEnemy2, newEnemy3];
+var player = new Player();
 
 
 
