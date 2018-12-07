@@ -1,7 +1,7 @@
 // Enemies our player must avoid
 class Enemy {
 
-    constructor(x, y, speed){
+    constructor(x, y, speed = Math.floor(Math.random() * 400) + 100){
         this.sprite = 'images/enemy-bug.png'
         this.x = x;
         this.y = y;
@@ -31,14 +31,33 @@ class Player {
     constructor(){
         //introduce enum to randomly select player sprite?
         this.sprite = 'images/char-boy.png';
-
+        this.isCollided = false;
         this.x = 300;
-        this.y = 400;
+        this.y = 300;
     }
 
-    //is this necessary?
-    update(dt) {
 
+    update() {
+        //only check collision if in danger zones
+        if (this.y >= 75 && this.y <= 225)
+            this.checkCollision();
+    }
+
+    //checks to see if enemies have collided with player
+    checkCollision(){
+        //using arrow function here to 
+        //retain reference of this to the 
+        //player object, cool!
+        allEnemies.forEach((enemy) => {
+            if (enemy.y == this.y && 
+                ((enemy.x >= this.x - 35) && (enemy.x <= this.x + 35)))
+            this.reset();
+        });
+    }
+
+    reset(){
+        this.x = 300;
+        this.y = 300;
     }
 
     //draws the sprite to the screen at the specified location
@@ -53,19 +72,19 @@ class Player {
         switch (input) {
             case 'left':
                 if (this.x > 25)
-                    this.x = this.x - 50;
+                    this.x = this.x - 100;
                 break;
             case 'right':
                 if (this.x < 375)
-                    this.x = this.x + 50;
+                    this.x = this.x + 100;
                 break;
             case 'up':
                 if (this.y > 25)
-                    this.y = this.y - 50;
+                    this.y = this.y - 75;                             
                 break;
             case 'down':
                 if (this.y < 375)
-                    this.y = this.y + 50;
+                    this.y = this.y + 75;
                 break;
             default:
                 console.log(wat);
@@ -76,11 +95,11 @@ class Player {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var newEnemy1 = new Enemy(1, 143.5, 200);
-var newEnemy2 = new Enemy(1, 60, 350);
-var newEnemy3 = new Enemy(1, 225, 100);
+var newEnemy1 = new Enemy(1, 150);
+var newEnemy2 = new Enemy(1, 75);
+var newEnemy3 = new Enemy(1, 225);
 
-allEnemies = [newEnemy1, newEnemy2, newEnemy3];
+let allEnemies = [newEnemy1, newEnemy2, newEnemy3];
 var player = new Player();
 
 
@@ -97,3 +116,5 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+//player.addEventListener()
