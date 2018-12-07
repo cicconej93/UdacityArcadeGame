@@ -1,3 +1,38 @@
 body {
     text-align: center;
 }
+
+/*Win-modal styles*/
+.open {
+    top: 200px !important; 
+}
+
+.plyBtn {
+    margin-top: 25%;
+    width: 150px;
+    height: 80px;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-color: rgb(139, 140, 212);
+    color: black
+}
+
+.winLoseScreen {
+    width: 300px;
+    min-height: 240px;
+    background: linear-gradient(160deg, #c3c2c4 0%, #e2eceb 100%);
+    padding: 32px;
+    border-radius: 10px;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    text-align: center;
+    align-items: center;
+    position: absolute;
+    top: -600px;
+    z-index: 1;
+    -webkit-transition: top 1s ;  /* Chrome 1-25, Safari 3.2+ */
+    -moz-transition: top 1s ;  /* Firefox 4-15 */
+      -o-transition: top 1s ;  /* Opera 10.50–12.00 */
+         transition: top 1s ;  /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+
+    
+}

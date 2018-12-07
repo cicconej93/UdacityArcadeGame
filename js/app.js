@@ -1,6 +1,8 @@
 const topBoard = 0;
 const botBoard = 225;
 
+
+//The game, controls win conditions
 class Game {
 
     constructor(player){
@@ -8,6 +10,8 @@ class Game {
         this.botBoard = botBoard;
         this.ourPlayer = player;
         this.gameCondition = false;
+        this.winLoseScreen = document.querySelector(".winLoseScreen");
+        this.plyBtn = document.querySelector(".plyBtn");
 
     }
 
@@ -23,12 +27,28 @@ class Game {
             //add pop up modal to tell player they won
             //gray out and disable game in background
             //give option to reset game
+            this.gameWon();
             this.ourPlayer.reset();
+
 
         }
     }
 
-
+    //display modal for winning
+    gameWon(){
+        let winNotify = document.querySelector(".winLoseNotification");
+        winNotify.textContent = "You Win!";
+        this.winLoseScreen.classList.add("open");
+     };
+    
+     //display the modal for losing
+    //  gameLose(){
+    //      let loseNotify = document.querySelector(".winLoseNotification");
+    //      let losingTime = document.querySelector(".winTime");
+    //      loseNotify.textContent = "Sorry, you lose this time!";
+    //      losingTime.textContent = "It took you " + timer.textContent + " to... lose";
+    //      winLoseScreen.classList.add("open");
+    //  };
 }
 
 
@@ -129,18 +149,17 @@ class Player {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var newEnemy1 = new Enemy(1, 150);
-var newEnemy2 = new Enemy(1, 75);
-var newEnemy3 = new Enemy(1, 225);
+let newEnemy1 = new Enemy(1, 150);
+let newEnemy2 = new Enemy(1, 75);
+let newEnemy3 = new Enemy(1, 225);
 
 let allEnemies = [newEnemy1, newEnemy2, newEnemy3];
 let player = new Player();
 let game = new Game(player);
 
 
-
 // This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
