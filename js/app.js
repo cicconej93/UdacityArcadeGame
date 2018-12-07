@@ -1,3 +1,37 @@
+const topBoard = 0;
+const botBoard = 225;
+
+class Game {
+
+    constructor(player){
+        this.topBoard = topBoard;
+        this.botBoard = botBoard;
+        this.ourPlayer = player;
+        this.gameCondition = false;
+
+    }
+
+    update(){
+        this.checkWin();
+
+    }
+
+    checkWin(){
+        if(this.ourPlayer.y == this.topBoard && this.gameCondition == false){
+            console.log("Win condition met");
+            this.gameCondition = true;
+            //add pop up modal to tell player they won
+            //gray out and disable game in background
+            //give option to reset game
+            this.ourPlayer.reset();
+
+        }
+    }
+
+
+}
+
+
 // Enemies our player must avoid
 class Enemy {
 
@@ -39,7 +73,7 @@ class Player {
 
     update() {
         //only check collision if in danger zones
-        if (this.y >= 75 && this.y <= 225)
+        if (this.y >= topBoard && this.y <= botBoard)
             this.checkCollision();
     }
 
@@ -100,7 +134,8 @@ var newEnemy2 = new Enemy(1, 75);
 var newEnemy3 = new Enemy(1, 225);
 
 let allEnemies = [newEnemy1, newEnemy2, newEnemy3];
-var player = new Player();
+let player = new Player();
+let game = new Game(player);
 
 
 
@@ -116,5 +151,3 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-//player.addEventListener()
