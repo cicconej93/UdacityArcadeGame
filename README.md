@@ -17,3 +17,7 @@ Contact with an enemy beetle results in a game-lose state, making it to the blue
 - On game-win, 3 new enemies will be pushed to the enemy stack and rendered. Speeds of enemies will remain variable.
 
 - On game-lose, 3 enemies will be popped from the enemy stack, if there are at least 6 enemies currently on the stack.
+
+### To Play the Game
+In order to play the game, you will need to download the project's repository to your local machine. 
+Then, you can initiate the game by launching the "index.html" file with a browser, such as Google Chrome.
