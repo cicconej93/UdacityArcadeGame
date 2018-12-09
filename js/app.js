@@ -1,5 +1,7 @@
 const TOP_BOARD = 0;
 const BOT_BOARD = 225;
+
+//keyboard controls disabled if true
 let modalOpen = false;
 
 let plyBtn = document.querySelector(".plyBtn");
@@ -19,20 +21,21 @@ class Game {
 
     }
 
+    //Checks for win and collision conditions on each update
     update(){
         this.checkWin();
+        //only check for collisions when player in DANGER ZONE
         if (this.ourPlayer.y >= TOP_BOARD && this.ourPlayer.y <= BOT_BOARD)
             this.checkCollision();
 
     }
 
+    //provide game-win state if player reaches edge of board.
     checkWin(){
         if(this.ourPlayer.y == this.topBoard && this.gameCondition == false){
             console.log("Win condition met");
             this.gameCondition = true;
-            //add pop up modal to tell player they won
-            //gray out and disable game in background
-            //give option to reset game
+
             this.gameWon();
             modalOpen = true;
             
@@ -110,6 +113,7 @@ class Enemy {
 
     }
 
+    //moves our enemies across the board
     update(dt){
         // You should multiply any movement by the dt parameter
         // which will ensure the game runs at the same speed for
@@ -120,6 +124,7 @@ class Enemy {
         } else this.x = this.x + this.speed * dt;
     }
 
+    //draws the enemies
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
@@ -137,11 +142,12 @@ class Player {
         this.y = 300;
     }
 
-
+    //may add to this at a later point
     update() {
     }
 
 
+    //resets player to starting location on win or lose condition
     reset(){
         this.x = 200;
         this.y = 300;
