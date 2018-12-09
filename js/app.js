@@ -5,7 +5,8 @@ let modalOpen = false;
 let plyBtn = document.querySelector(".plyBtn");
 
 
-//The game, controls win conditions
+//The game, controls the state of the game itself
+//checks conditions for winning and resetting player.
 class Game {
 
     constructor(player){
@@ -58,6 +59,7 @@ class Game {
         winNotify.textContent = "You Win! But the perils grow greater...";
         this.winLoseScreen.classList.add("open");
 
+        //change state of game for winning
         modalOpen = true;
         this.increaseLvl();
         this.ourPlayer.reset();
@@ -72,6 +74,7 @@ class Game {
         loseNotify.textContent = "You took a hit; the hoarde calms...";
         this.winLoseScreen.classList.add("open");
 
+        //change state of game for losing
         modalOpen = true;
         this.decreaseLvl();
       };
