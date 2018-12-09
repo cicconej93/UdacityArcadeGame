@@ -1,3 +1,4 @@
+"use strict";
 const TOP_BOARD = 0;
 const BOT_BOARD = 225;
 
@@ -49,7 +50,7 @@ class Game {
         //player object, cool!
         allEnemies.forEach((enemy) => {
             if (enemy.y == this.ourPlayer.y && 
-                ((enemy.x >= this.ourPlayer.x - 35) && (enemy.x <= this.ourPlayer.x + 35))) {
+                ((enemy.x >= this.ourPlayer.x - 55) && (enemy.x <= this.ourPlayer.x + 55))) {
                 this.ourPlayer.reset();
                 game.gameLose();
                 }
