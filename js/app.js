@@ -1,22 +1,27 @@
-const topBoard = 0;
-const botBoard = 225;
+const TOP_BOARD = 0;
+const BOT_BOARD = 225;
+let modalOpen = false;
+
+let plyBtn = document.querySelector(".plyBtn");
 
 
 //The game, controls win conditions
 class Game {
 
     constructor(player){
-        this.topBoard = topBoard;
-        this.botBoard = botBoard;
+        this.topBoard = TOP_BOARD;
+        this.botBoard = BOT_BOARD;
         this.ourPlayer = player;
         this.gameCondition = false;
         this.winLoseScreen = document.querySelector(".winLoseScreen");
-        this.plyBtn = document.querySelector(".plyBtn");
+        
 
     }
 
     update(){
         this.checkWin();
+        if (this.ourPlayer.y >= TOP_BOARD && this.ourPlayer.y <= BOT_BOARD)
+            this.checkCollision();
 
     }
 
@@ -28,27 +33,64 @@ class Game {
             //gray out and disable game in background
             //give option to reset game
             this.gameWon();
-            this.ourPlayer.reset();
-
-
+            modalOpen = true;
+            
         }
+    }
+
+    //checks to see if enemies have collided with player
+    checkCollision(){
+        //using arrow function here to 
+        //retain reference of this to the 
+        //player object, cool!
+        allEnemies.forEach((enemy) => {
+            if (enemy.y == this.ourPlayer.y && 
+                ((enemy.x >= this.ourPlayer.x - 35) && (enemy.x <= this.ourPlayer.x + 35))) {
+                this.ourPlayer.reset();
+                game.gameLose();
+                }
+        });
     }
 
     //display modal for winning
     gameWon(){
         let winNotify = document.querySelector(".winLoseNotification");
-        winNotify.textContent = "You Win!";
+        winNotify.textContent = "You Win! But the perils grow greater...";
         this.winLoseScreen.classList.add("open");
+
+        this.increaseLvl();
+        this.ourPlayer.reset();
+        this.gameCondition = false;
+        
+
      };
     
      //display the modal for losing
-    //  gameLose(){
-    //      let loseNotify = document.querySelector(".winLoseNotification");
-    //      let losingTime = document.querySelector(".winTime");
-    //      loseNotify.textContent = "Sorry, you lose this time!";
-    //      losingTime.textContent = "It took you " + timer.textContent + " to... lose";
-    //      winLoseScreen.classList.add("open");
-    //  };
+    gameLose(){
+        let loseNotify = document.querySelector(".winLoseNotification");
+        loseNotify.textContent = "You took a hit; the hoarde calms...";
+        this.winLoseScreen.classList.add("open");
+
+        this.decreaseLvl();
+      };
+    
+    //adds 3 new enemies to the stack
+    increaseLvl(){
+        for(let i = 75; i<300; i+=75){
+            allEnemies.push(new Enemy(1, i));
+        }
+        console.log(allEnemies.length);
+    }
+
+    //pops 3 enemies off the stack if there are 6 or more enemies on screen
+    decreaseLvl(){
+        if(allEnemies.length > 3){
+            for(let i = 0; i<3 ;i++){
+                allEnemies.pop();
+            }
+        }
+    }
+    
 }
 
 
@@ -92,22 +134,8 @@ class Player {
 
 
     update() {
-        //only check collision if in danger zones
-        if (this.y >= topBoard && this.y <= botBoard)
-            this.checkCollision();
     }
 
-    //checks to see if enemies have collided with player
-    checkCollision(){
-        //using arrow function here to 
-        //retain reference of this to the 
-        //player object, cool!
-        allEnemies.forEach((enemy) => {
-            if (enemy.y == this.y && 
-                ((enemy.x >= this.x - 35) && (enemy.x <= this.x + 35)))
-            this.reset();
-        });
-    }
 
     reset(){
         this.x = 300;
@@ -161,7 +189,7 @@ let game = new Game(player);
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
+    let allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
@@ -169,4 +197,9 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+});
+
+//Handle continue button for win-lose modal
+plyBtn.addEventListener('click', function() {
+    game.winLoseScreen.classList.remove("open");
 });
