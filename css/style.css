@@ -1,5 +1,9 @@
 body {
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 /*Win-modal styles*/
@@ -18,6 +22,7 @@ body {
 }
 
 .winLoseScreen {
+    
     width: 300px;
     min-height: 240px;
     background: linear-gradient(160deg, #c3c2c4 0%, #e2eceb 100%);

@@ -58,6 +58,7 @@ class Game {
         winNotify.textContent = "You Win! But the perils grow greater...";
         this.winLoseScreen.classList.add("open");
 
+        modalOpen = true;
         this.increaseLvl();
         this.ourPlayer.reset();
         this.gameCondition = false;
@@ -71,6 +72,7 @@ class Game {
         loseNotify.textContent = "You took a hit; the hoarde calms...";
         this.winLoseScreen.classList.add("open");
 
+        modalOpen = true;
         this.decreaseLvl();
       };
     
@@ -128,7 +130,7 @@ class Player {
         //introduce enum to randomly select player sprite?
         this.sprite = 'images/char-boy.png';
         this.isCollided = false;
-        this.x = 300;
+        this.x = 200;
         this.y = 300;
     }
 
@@ -138,7 +140,7 @@ class Player {
 
 
     reset(){
-        this.x = 300;
+        this.x = 200;
         this.y = 300;
     }
 
@@ -189,17 +191,20 @@ let game = new Game(player);
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
-    let allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
+    if(modalOpen == false){
+        let allowedKeys = {
+            37: 'left',
+            38: 'up',
+            39: 'right',
+            40: 'down'
+        };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+        player.handleInput(allowedKeys[e.keyCode]);
+    }
 });
 
 //Handle continue button for win-lose modal
 plyBtn.addEventListener('click', function() {
     game.winLoseScreen.classList.remove("open");
+    modalOpen = false;
 });
