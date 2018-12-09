@@ -70,7 +70,7 @@ class Game {
         this.gameCondition = false;
         
 
-     };
+     }
     
      //display the modal for losing
     gameLose(){
@@ -81,7 +81,7 @@ class Game {
         //change state of game for losing
         modalOpen = true;
         this.decreaseLvl();
-      };
+      }
     
     //adds 3 new enemies to the stack
     increaseLvl(){
@@ -107,7 +107,7 @@ class Game {
 class Enemy {
 
     constructor(x, y, speed = Math.floor(Math.random() * 400) + 100){
-        this.sprite = 'images/enemy-bug.png'
+        this.sprite = 'images/enemy-bug.png';
         this.x = x;
         this.y = y;
         this.speed = speed;
@@ -181,7 +181,7 @@ class Player {
                     this.y = this.y + 75;
                 break;
             default:
-                console.log(wat);
+                console.log("wat");
         }
     }
 }
